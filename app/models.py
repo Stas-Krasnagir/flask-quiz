@@ -55,8 +55,8 @@ class Categories(db.Model):
             category_id=id,
             category_name=category_name)
         do_update_stmt = insert_stmt.on_conflict_do_update(
-            constraint='category_name',
-            set_=dict(category_name='updated value'))
+            constraint=category_name,
+            set_=dict(category_name=category_name))
         db.session.execute(do_update_stmt)
         db.session.commit()
         return False
