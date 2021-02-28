@@ -23,6 +23,7 @@ def upgrade():
     sa.Column('category_name', sa.String(length=64), nullable=False),
     sa.PrimaryKeyConstraint('category_id')
     )
+
     op.create_table('questions',
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('question', sa.String(length=140), nullable=False),
@@ -30,6 +31,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['category_id'], ['categories.category_id'], ),
     sa.PrimaryKeyConstraint('question_id')
     )
+
     op.create_table('answers',
     sa.Column('question_id', sa.Integer(), nullable=True),
     sa.Column('answer', sa.String(), nullable=False),

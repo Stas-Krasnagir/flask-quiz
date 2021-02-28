@@ -3,6 +3,11 @@ from flask import jsonify, wrappers, request
 from app.models import Categories
 
 
+@app.route('/', methods=['GET'])
+def index():
+    return "Home page"
+
+
 @app.route('/categories/', methods=['GET'])
 def categories() -> wrappers.Response:
     return jsonify(dict(Categories.get_categories()))

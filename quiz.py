@@ -6,3 +6,5 @@ from app.models import Categories, Questions, Answers
 def make_shell_context():
     return {'db': db, 'Categories': Categories, 'Questions': Questions,
             'Answers': Answers}
+
+
