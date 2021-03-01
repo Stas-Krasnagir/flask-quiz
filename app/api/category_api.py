@@ -22,10 +22,18 @@ def get_category(id: int) -> wrappers.Response:
 @app.route('/category/', methods=['POST'])
 def add_category() -> wrappers.Response:
     category = request.form['data']
-    if Categories.check_exist_category(category):
+    try:
+        Categories.check_exist_category(category)
+        Categories.add(category)
+        return jsonify({"201 Created": "HTTP/1.1"})
+    except:
         return jsonify({"403 Forbidden": "HTTP/1.1"})
-    Categories.add(category)
-    return jsonify({"201 Created": "HTTP/1.1"})
+
+    # category = request.form['data']
+    # if Categories.check_exist_category(category):
+    #    return jsonify({"403 Forbidden": "HTTP/1.1"})
+    # Categories.add(category)
+    # return jsonify({"201 Created": "HTTP/1.1"})
 
 
 @app.route('/category/<int:id>', methods=['DELETE'])
@@ -38,7 +46,8 @@ def delete_category(id: int) -> wrappers.Response:
 @app.route('/category/<int:id>', methods=['PUT'])
 def edit_category(id: int) -> wrappers.Response:
     Categories.query.get_or_404(id)
-    category = request.form['data']
-    if Categories.edit(category, id):
+    try:
+        Categories.edit(request.form['data'], id)
+        return jsonify({"200 OK": "HTTP/1.1"})
+    except:
         return jsonify({"403 Forbidden": "HTTP/1.1"})
-    return jsonify({"200 OK": "HTTP/1.1"})
